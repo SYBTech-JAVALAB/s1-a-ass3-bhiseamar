@@ -1,0 +1,132 @@
+package employee;
+import java.util.*;
+
+class Emp{
+	protected double salary;
+	protected String name;
+	Emp(String name,double salary) throws Exception{
+		if(salary<=0) {
+			throw new Exception("Salary can not be negative or zero");
+		}
+		if(name == null || name == "") {
+			throw new Exception("Name not entered");
+		}
+		this.salary = salary;
+		this.name = name;
+	}
+	void calculateSal() {
+		System.out.println("Salary is:"+this.salary);
+	}
+	void display() {
+		System.out.println("Name:"+this.name);        
+		
+		System.out.println("Salary:"+this.salary);
+	}
+}
+
+class Manager extends Emp{
+	private double bonus;
+	public Manager(String name, double salary, double bonus) throws Exception{
+		super(name,salary);
+		if(bonus<=0) {
+			throw new Exception("Bonus can not be nagative or zero");
+		}
+		this.bonus = bonus;
+	}
+	
+	@Override
+	void calculateSal() {
+		double sal = this.salary + this.bonus;
+		System.out.println("Salary with bonus:"+sal);
+	}
+	
+}
+
+class TeamLeader extends Emp{
+	private double increment;
+	
+	public TeamLeader(String name, double salary, double increment) throws Exception{
+		super(name, salary);
+		if(increment<=0) {
+			throw new Exception("Increment can not be negative or zero");
+		}
+		this.increment = increment;
+	}
+
+	@Override
+	void calculateSal() {
+		double TotalSal = this.salary + this.increment;
+		System.out.println("Updated Salary:"+TotalSal);
+	}
+	
+}
+
+public class Employee {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		boolean validInput = false;
+		String role;
+		System.out.println("Enter Role(Manager/TeamLeader):");
+		role = sc.next();
+		while(!validInput) {
+			System.out.print("Enter Name:");
+			validInput = true;
+		}                                                                    
+//		try {
+//			String name = sc.nextLine();
+//			
+//			System.out.print("Enter Salary:");
+//			double salary = sc.nextDouble();
+//			
+//			System.out.print("Enter Bonus:");
+//			double bonus = sc.nextDouble();
+//			
+//			Manager m1 = new Manager(name,salary,bonus);
+//			m1.display();
+//			m1.calculateSal();
+//		}
+//		catch(Exception e){
+//			System.out.println("Exception Caught: " +e);
+//		}
+		try{
+			switch(role) {
+			case "Manager":
+				//System.out.print("Enter Name:");
+				String name = sc.next();
+				
+				System.out.println("Enter Salary:");
+				double salary = sc.nextDouble();
+				
+				System.out.println("Enter Bonus:");
+				double bonus = sc.nextDouble();
+				
+				Manager m1 = new Manager(name,salary,bonus);
+				m1.display();
+				m1.calculateSal();
+				
+				break;
+				
+			case "TeamLeader":
+				//System.out.println("Enter Name:");
+				String name1 = sc.next();
+				
+				System.out.println("Enter Salary:");
+				double salary1 = sc.nextDouble();
+				
+				System.out.println("Enter Increment:");
+				double increment = sc.nextDouble();
+		
+				TeamLeader t1 = new TeamLeader(name1,salary1,increment);
+				t1.display();
+				t1.calculateSal();
+			
+				break;
+			default:
+				System.out.println("Invalid input");
+			}	
+		}
+		catch(Exception e){
+			System.out.println("caught exception: " +e);
+		}
+	}	
+}
